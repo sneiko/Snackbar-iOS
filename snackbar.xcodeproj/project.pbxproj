@@ -12,6 +12,7 @@
 		D03CF6651DEF54C6002D16A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D03CF6631DEF54C6002D16A9 /* Main.storyboard */; };
 		D03CF6671DEF54C6002D16A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D03CF6661DEF54C6002D16A9 /* Assets.xcassets */; };
 		D03CF66A1DEF54C6002D16A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D03CF6681DEF54C6002D16A9 /* LaunchScreen.storyboard */; };
+		D03CF6731DEF5514002D16A9 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03CF6721DEF5514002D16A9 /* Snackbar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		D03CF6661DEF54C6002D16A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D03CF6691DEF54C6002D16A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D03CF66B1DEF54C6002D16A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D03CF6721DEF5514002D16A9 /* Snackbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		D03CF65E1DEF54C6002D16A9 /* snackbar */ = {
 			isa = PBXGroup;
 			children = (
+				D03CF6711DEF54EE002D16A9 /* SnackBar */,
 				D03CF65F1DEF54C6002D16A9 /* AppDelegate.swift */,
 				D03CF6611DEF54C6002D16A9 /* ViewController.swift */,
 				D03CF6631DEF54C6002D16A9 /* Main.storyboard */,
@@ -62,6 +65,14 @@
 				D03CF66B1DEF54C6002D16A9 /* Info.plist */,
 			);
 			path = snackbar;
+			sourceTree = "<group>";
+		};
+		D03CF6711DEF54EE002D16A9 /* SnackBar */ = {
+			isa = PBXGroup;
+			children = (
+				D03CF6721DEF5514002D16A9 /* Snackbar.swift */,
+			);
+			path = SnackBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +148,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D03CF6731DEF5514002D16A9 /* Snackbar.swift in Sources */,
 				D03CF6621DEF54C6002D16A9 /* ViewController.swift in Sources */,
 				D03CF6601DEF54C6002D16A9 /* AppDelegate.swift in Sources */,
 			);
