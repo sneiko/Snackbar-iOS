@@ -15,21 +15,30 @@ enum SBAnimationLength {
 
 class Snackbar: NSObject {
     
-    var snackbarHeight: CGFloat = 65
-    var backgroundColor: UIColor = .darkGray
-    var textColor: UIColor = .white
-    var buttonColor:UIColor = .cyan
+    // settings snackbar
+    var snackbarHeight: CGFloat     = 65
+    var backgroundColor: UIColor    = .darkGray
+    var textColor: UIColor          = .white
+    var buttonColor:UIColor         = .cyan
+    var buttonColorPressed:UIColor  = .gray
+    var sbLenght: SBAnimationLength = .shot
     
-    
-    let snackbarView: UIView = {
-        let view = UIView(frame: .zero)
-        return view
-    }()
-    
+    //private variables
     private let window: UIWindow = {
         let window = UIApplication.shared.keyWindow
         return window!
     }()
+    
+    private let snackbarView: UIView = {
+        let view = UIView(frame: .zero)
+        return view
+    }()
+    
+    private let txt: UILabel = UILabel()
+    private let btn: UIButton = UIButton()
+    
+    private var action: (() -> Void)? = nil
+    
     
     override init(){
         super.init()
@@ -37,27 +46,44 @@ class Snackbar: NSObject {
     
     
     /// Show simple text notification
-    func showText(_ text: String, sbLength: SBAnimationLength) {
+    open func createWithText(_ text: String) {
         
-        let txt: UILabel = UILabel()
+        setupSnackbarView()
         
-        window.addSubview(snackbarView)
-        
-        // snackbar settings
-        snackbarView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: snackbarHeight)
-        snackbarView.backgroundColor = self.backgroundColor
-        
-        //textView settings
-        snackbarView.addSubview(txt)
         txt.text = text
         txt.textColor = textColor
-//        txt.backgroundColor = .green
+        txt.frame = CGRect(x: window.frame.width * 5/100, y: 0, width: window.frame.width * 95/100, height: snackbarHeight)
+        snackbarView.addSubview(txt)
         
-        txt.frame = CGRect(x: window.frame.width * 1/15, y: 0, width: window.frame.width * 13/15, height: snackbarHeight)
+        show()
+    }
+    
+    
+    /// Show snackbar with text and button
+    open func createWithAction( text: String, actionTitle: String, action: @escaping () -> Void){
+        self.action = action
         
+        setupSnackbarView()
         
+        txt.text = text
+        txt.textColor = textColor
+        txt.frame = CGRect(x: window.frame.width * 5/100, y: 0, width: window.frame.width * 75/100, height: snackbarHeight)
+        snackbarView.addSubview(txt)
         
-        switch sbLength {
+        btn.setTitleColor(buttonColor,  for: .normal)
+        btn.setTitleColor(.gray, for: .highlighted)
+        btn.setTitle(actionTitle, for: .normal)
+        btn.addTarget(self, action: #selector(actionButtonPress), for: .touchUpInside)
+        btn.frame = CGRect(x: window.frame.width * 73/100, y: 0, width: window.frame.width * 25/100, height: snackbarHeight)
+        snackbarView.addSubview(btn)
+        
+        show()
+    }
+    
+    
+    
+    open func show(){
+        switch sbLenght {
         case .shot:
             animateBar(2)
             
@@ -67,7 +93,17 @@ class Snackbar: NSObject {
         }
     }
     
-    private func animateBar(_ timerLength: Float){
+    
+    private func setupSnackbarView(){
+        window.addSubview(snackbarView)
+        
+        snackbarView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: snackbarHeight)
+        snackbarView.backgroundColor = self.backgroundColor
+    }
+    
+    
+    
+    fileprivate func animateBar(_ timerLength: Float){
         
         UIView.animate(withDuration: 0.4, animations: {
             self.snackbarView.frame = CGRect(x: 0, y: self.window.frame.height - self.snackbarHeight, width: self.window.frame.width, height: self.snackbarHeight)
@@ -76,7 +112,15 @@ class Snackbar: NSObject {
         })
     }
     
-    @objc private func hide(){
+    
+    // MARK: Selectors
+    
+    @objc private func actionButtonPress(){
+        action!()
+        hide()
+    }
+    
+    @objc fileprivate func hide(){
         UIView.animate(withDuration: 0.4, animations: {
             self.snackbarView.frame = CGRect(x: 0, y: self.window.frame.height, width: self.window.frame.width, height: self.snackbarHeight)
          })
@@ -84,3 +128,5 @@ class Snackbar: NSObject {
     
     
 }
+
+

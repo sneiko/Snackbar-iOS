@@ -16,7 +16,12 @@ class ViewController: UIViewController {
     
     @IBAction func buttonPush(_ sender: Any) {
         let sb = Snackbar()
-        sb.showText("Покажись!!! Тарататата стреляю с калакаша!!!", sbLength: .shot)
+        sb.createWithAction(text: "Simple info text",
+                            actionTitle: "Push me",
+                            action: {
+                                print("Button is push")
+        })
+        sb.show()
     }
 }
 
