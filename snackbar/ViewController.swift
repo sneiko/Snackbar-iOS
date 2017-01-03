@@ -16,8 +16,9 @@ class ViewController: UIViewController {
     
     @IBAction func buttonPush(_ sender: Any) {
         let sb = Snackbar()
+        sb.sbLenght = .long
         sb.createWithAction(text: "Simple info text",
-                            actionTitle: "Push me",
+                            actionTitle: "Push",
                             action: {
                                 print("Button is push")
         })

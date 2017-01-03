@@ -2,8 +2,8 @@
 //  Snackbar.swift
 //  snackbar
 //
-//  Created by Сергей on 30.11.16.
-//  Copyright © 2016 Fish in Sky. All rights reserved.
+//  Created by Нейкович Сергей on 30.11.16.
+//  Copyright © 2016 CubInCup. All rights reserved.
 //
 
 import UIKit
@@ -24,15 +24,8 @@ class Snackbar: NSObject {
     var sbLenght: SBAnimationLength = .shot
     
     //private variables
-    private let window: UIWindow = {
-        let window = UIApplication.shared.keyWindow
-        return window!
-    }()
-    
-    private let snackbarView: UIView = {
-        let view = UIView(frame: .zero)
-        return view
-    }()
+    private let window = UIApplication.shared.keyWindow!
+    private let snackbarView = UIView(frame: .zero)
     
     private let txt: UILabel = UILabel()
     private let btn: UIButton = UIButton()
@@ -42,8 +35,8 @@ class Snackbar: NSObject {
     
     override init(){
         super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(rotate), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
-    
     
     /// Show simple text notification
     open func createWithText(_ text: String) {
@@ -120,12 +113,16 @@ class Snackbar: NSObject {
         hide()
     }
     
-    @objc fileprivate func hide(){
+    @objc private func hide(){
         UIView.animate(withDuration: 0.4, animations: {
             self.snackbarView.frame = CGRect(x: 0, y: self.window.frame.height, width: self.window.frame.width, height: self.snackbarHeight)
          })
     }
     
+    @objc private func rotate(){
+        self.snackbarView.frame = CGRect(x: 0, y: self.window.frame.height - self.snackbarHeight, width: self.window.frame.width, height: self.snackbarHeight)
+        btn.frame = CGRect(x: window.frame.width * 73/100, y: 0, width: window.frame.width * 25/100, height: snackbarHeight)
+    }
     
 }
 
